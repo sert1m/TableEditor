@@ -47,6 +47,12 @@ function editCharacter() {
 	if (checked.length > 1) {
 		alert("please select just one row to be edited");
 		return;
+	} 
+	else if (checked.length == 1) {
+		document.location.href = "edit.jsp?id=" + checked[0].value;
 	}
+	else if(checked.length == 0) {
+		document.location.href = "edit.jsp"
+	} 
 	
 }

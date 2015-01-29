@@ -45,6 +45,29 @@ public class CharacterDAO {
 		return res;
 	}
 	
+	public Character getCharacter(int id) throws SQLException {
+		Character res = null;
+		
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	
+		try {
+			stmt = con.prepareStatement("SELECT * FROM Characters where id=?");
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			
+			if (rs.next())
+				res = new Character(rs);
+		} finally {
+		    if (rs != null)
+		        rs.close();
+		    if (stmt != null)
+		    	stmt.close();
+		}
+		
+		return res;
+	}
+	
 	public void deleteCharacter(int id) throws SQLException {
 		
     	PreparedStatement stmt = null;
@@ -68,7 +91,7 @@ public class CharacterDAO {
     	
 		try {
 
-			stmt = con.prepareStatement("UPDATE Character SET FirstName=?, LastName=?, "
+			stmt = con.prepareStatement("UPDATE Characters SET FirstName=?, LastName=?, "
 									  + "Sex=?, Date=?, Job=?, Salary=? WHERE id=?");
 			
 			stmt.setString(1, c.getFirstName());
@@ -76,7 +99,8 @@ public class CharacterDAO {
 			stmt.setString(3, c.getSex());
 			stmt.setString(4, c.getDate());
 			stmt.setString(5, c.getJob());
-			stmt.setString(6, c.getSalary() == 0 ? "null" : Double.toString(c.getSalary()));
+			stmt.setDouble(6, c.getSalary());
+			stmt.setInt(7, c.getId());
 			
 			stmt.executeUpdate();
 		} finally {
@@ -93,19 +117,17 @@ public class CharacterDAO {
     	
 		try {
 
-			stmt = con.prepareStatement("INSERT INTO Character (FirstName, LastName, Sex, Date, Job, Salary)"
-									  + "OUTPUT Inserted.id VALUES (?, ?, ?, ?, ?, ?)");
+			stmt = con.prepareStatement("INSERT INTO Characters (FirstName, LastName, Sex, Date, Job, Salary)"
+									  + "VALUES (?, ?, ?, ?, ?, ?)");
 			
 			stmt.setString(1, c.getFirstName());
 			stmt.setString(2, c.getLastName());
 			stmt.setString(3, c.getSex());
 			stmt.setString(4, c.getDate());
 			stmt.setString(5, c.getJob());
-			stmt.setString(6, c.getSalary() == 0 ? "null" : Double.toString(c.getSalary()));
+			stmt.setDouble(6, c.getSalary());
 			
-			rs = stmt.executeQuery();
-			if (rs.next())
-				c.setId(rs.getInt(1));
+			stmt.executeUpdate();
 			
 		} finally {
 		    if (rs != null)

@@ -3,6 +3,8 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class Character {
 
 	private int id;
@@ -24,6 +26,25 @@ public class Character {
 		setDate(rs.getString("Date"));
 		setJob(rs.getString("Job"));
 		setSalary(rs.getDouble("Salary"));
+	}
+	
+	public Character(HttpServletRequest req) {
+		try {
+			setId(Integer.valueOf(req.getParameter("id")));
+		} catch (NumberFormatException e) {
+			setId(0);
+		}
+		setFirstName(req.getParameter("firstName"));
+		setLastName(req.getParameter("lastName"));
+		setSex(req.getParameter("sex"));
+		setDate(req.getParameter("date"));
+		setJob(req.getParameter("job"));
+		try { 
+			setSalary(Double.valueOf(req.getParameter("salary")));
+		}
+		catch (NumberFormatException e) {
+			setSalary(0);
+		}
 	}
 	
 	public int getId() {

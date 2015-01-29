@@ -13,6 +13,15 @@
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>web.EditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
 
 	<resource-ref>
 		<res-ref-name>jdbc/Simpsons</res-ref-name>
