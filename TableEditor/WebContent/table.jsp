@@ -11,6 +11,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<script type="text/javascript" src="./js/table.js"></script>
+		<script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
 		<title>The Simpsons Table</title>
 	</head>
 	<body>
@@ -18,7 +19,7 @@
 	    List<Character> characters = new CharacterDAO().getAllCharactes();
 		request.setAttribute("characters", characters);
 		%>
-		<table border = 1>
+		<table border=1 id="tbl">
 		<tr><td></td> <td>Name</td> <td>Surname</td> <td>Sex</td> <td>Original air date</td> <td>Job</td> <td>Salary</td> </tr>
 			<c:forEach var="c" items="${characters}">
 	            <tr>
@@ -34,7 +35,7 @@
 		</table>
 		<br>
 		<a href="${pageContext.request.contextPath}/table.jsp"><input type="button" value="refresh"></a>
-		<input type="button" value="edit">
+		<input type="button" value="edit" onclick="editCharacter()">
 		<input type="button" value="delete" onclick="deleteCharacter()">
 	</body>
 </html>

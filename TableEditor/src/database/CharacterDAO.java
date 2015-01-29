@@ -49,11 +49,11 @@ public class CharacterDAO {
 		
     	PreparedStatement stmt = null;
     	ResultSet rs = null;
-    	
+    	System.err.println(id);
 		try {
 			stmt = con.prepareStatement("DELETE FROM Characters where id=?");
 			stmt.setInt(1, id);
-			rs = stmt.executeQuery();
+			stmt.executeUpdate();
 		} finally {
 		    if (rs != null)
 		        rs.close();
@@ -78,7 +78,7 @@ public class CharacterDAO {
 			stmt.setString(5, c.getJob());
 			stmt.setString(6, c.getSalary() == 0 ? "null" : Double.toString(c.getSalary()));
 			
-			rs = stmt.executeQuery();
+			stmt.executeUpdate();
 		} finally {
 		    if (rs != null)
 		        rs.close();
