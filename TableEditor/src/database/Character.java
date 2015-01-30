@@ -2,33 +2,53 @@ package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-
+/**
+ * This class encapsulates Character entity in database.
+ * It contains constructors, getters and setters of it fields.
+ * @author timokhin
+ *
+ */
 public class Character {
 
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String sex;
-	private String date;
+	private Date date;
 	private String job;
 	private double salary;
+	
+	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Character () {
 		
 	}
+	/**
+	 * Construct Character object from ResultSet
+	 * @param rs result set of sql statement execution. 
+	 * @throws SQLException if the columnLabel is not valid; 
+	 * if a database access error occurs or this method is called on a closed result set
+	 */
 	public Character(ResultSet rs) throws SQLException {
 		setId(rs.getInt("id"));
 		setFirstName(rs.getString("FirstName"));
 		setLastName(rs.getString("LastName"));
 		setSex(rs.getString("Sex"));
-		setDate(rs.getString("Date"));
+		setDate(rs.getDate("Date"));
 		setJob(rs.getString("Job"));
 		setSalary(rs.getDouble("Salary"));
 	}
-	
-	public Character(HttpServletRequest req) {
+	/**
+	 * Construct Character object from ResultSet
+	 * @param req request that contains character fields. 
+	 * @throws ParseException date is not valid 
+	 */
+	public Character(HttpServletRequest req) throws ParseException {
 		try {
 			setId(Integer.valueOf(req.getParameter("id")));
 		} catch (NumberFormatException e) {
@@ -37,7 +57,7 @@ public class Character {
 		setFirstName(req.getParameter("firstName"));
 		setLastName(req.getParameter("lastName"));
 		setSex(req.getParameter("sex"));
-		setDate(req.getParameter("date"));
+		setDate(formatter.parse(req.getParameter("date")));
 		setJob(req.getParameter("job"));
 		try { 
 			setSalary(Double.valueOf(req.getParameter("salary")));
@@ -59,7 +79,7 @@ public class Character {
 	public String getSex() {
 		return sex;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	public String getJob() {
@@ -80,7 +100,7 @@ public class Character {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public void setJob(String job) {

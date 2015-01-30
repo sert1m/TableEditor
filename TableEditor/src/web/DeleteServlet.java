@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.CharacterDAO;
-
+/**
+ * Servlet that delete character from database
+ * @author timokhin 
+ *
+ */
 @SuppressWarnings("serial")
 public class DeleteServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

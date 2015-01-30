@@ -2,6 +2,7 @@
 <project name="table_editor" default="war" basedir=".">
 
 	<property name="project-name" value="${ant.project.name}" />
+	<property name="builder" value="timokhin" />
 
 	<property name="war-file-name" value="${project-name}.war" />
 	<property name="source-directory" value="src" />

@@ -7,6 +7,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Edit</title>
+		<link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet"></link>
 		<script type="text/javascript" src="./js/edit.js"></script>
 		<script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
 	</head>
@@ -19,24 +20,29 @@
 			request.setAttribute("c", c);
 		}
 		%>
+		<h1 align="center">Edit</h1>
 		<table border=1 id="tbl">
 			<tr><td>Name</td> <td>Surname</td> <td>Sex</td> <td>Original air date</td> <td>Job</td> <td>Salary</td> </tr>
 			<tr>
 				<td style="display: none;" id="id">${c.id }</td>
 				<td><input type="text" value="${c.firstName}" id="firstName"></td> 
 				<td><input type="text" value="${c.lastName}" id="lastName"></td>
-				<td><input type="text" value="${c.sex}" id="sex"></td>
+				<td><select id="sex">
+						<option value="m" ${c.sex == "m" ? "selected" : "" }>m</option>
+						<option value="w" ${c.sex == "w" ? "selected" : "" }>w</option>
+					</select></td>
 				<td><input type="text" value="${c.date}" id="date"></td>
 				<td><input type="text" value="${c.job}" id="job"></td>
 				<td><input type="text" value="${c.salary}" id="salary"></td>
 			</tr>
 		</table>
+		<br>
 		<% if (id != null) {%>
-		<input type="button" onclick="save()" value="Save"/>
+		<input type="button" onclick="save()" value="Save" class="button"/>
 		<% } else {%>
-		<input type="button" onclick="add()" value="Add"/>
+		<input type="button" onclick="add()" value="Add" class="button"/>
 		<% }%>
-		<input type="button" onclick="history.back(-1);" value="Cancel"/>
+		<input type="button" onclick="document.location.href = 'table.jsp'" value="Cancel" class="button"/>
 
 	</body>
 </html>

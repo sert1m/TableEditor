@@ -1,0 +1,1 @@
+Copy "Simpsons" folder to /var/lib/mysql/
