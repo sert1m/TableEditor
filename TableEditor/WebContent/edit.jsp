@@ -2,6 +2,7 @@
 <%@ page import="database.CharacterDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -37,11 +38,15 @@
 			</tr>
 		</table>
 		<br>
-		<% if (id != null) {%>
-		<input type="button" onclick="save()" value="Save" class="button"/>
-		<% } else {%>
-		<input type="button" onclick="add()" value="Add" class="button"/>
-		<% }%>
+		<c:choose>
+			<c:when test="${c.id != null }">
+				<input type="button" onclick="save()" value="Save" class="button"/>
+			</c:when>
+			<c:otherwise>
+				<input type="button" onclick="add()" value="Add" class="button"/>
+			</c:otherwise>
+		</c:choose>	
+
 		<input type="button" onclick="document.location.href = 'table.jsp'" value="Cancel" class="button"/>
 
 	</body>
